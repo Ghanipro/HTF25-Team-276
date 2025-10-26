@@ -1,0 +1,39 @@
+rules:
+  sql_injection:
+    enabled: true
+    patterns:
+      - "(\%27)|(\')|(\-\-)|(\%23)|(#)"
+      - "((\%3D)|(=))[^\n]*((\%27)|(\')|(\-\-)|(\%3B)|(;))"
+      - "\w*((\%27)|(\'))((\%6F)|o|(\%4F))((\%72)|r|(\%52))"
+      - "((\%27)|(\'))union"
+      - "exec(\s|\+)+(s|x)p\w+"
+  
+  xss:
+    enabled: true
+    patterns:
+      - "((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>)"
+      - "((\%3C)|<)((\%69)|i|(\%49))((\%6D)|m|(\%4D))((\%67)|g|(\%47))"
+      - "javascript:"
+      - "onload\s*="
+      - "alert\s*\("
+  
+  path_traversal:
+    enabled: true
+    patterns:
+      - "\.\.\/"
+      - "\.\.\\"
+      - "\/etc\/passwd"
+      - "\/winnt\/win.ini"
+  
+  command_injection:
+    enabled: true
+    patterns:
+      - ";\s*(ls|dir|cat|rm|del|kill)\s"
+      - "\|\s*(ls|dir|cat|rm|del)\s"
+      - "`.*`"
+  
+  rfi_lfi:
+    enabled: true
+    patterns:
+      - "(http|ftp|https):\/\/.*\.(php|exe|dll)"
+      - "\.\./\.\./"
